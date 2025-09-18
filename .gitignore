@@ -1,0 +1,19 @@
+# macOS system files
+.DS_Store
+
+# Raw / unsanitized packet captures
+*_headers_only.pcap
+*_extracted.pcap
+brute_force.pcap
+baseline.pcap
+*.pcapng
+
+# Logs and editor temp files
+*.log
+*.swp
+*.tmp
+
+# Python cache (if you add scripts later)
+__pycache__/
+*.pyc
+
