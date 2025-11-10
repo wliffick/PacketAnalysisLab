@@ -118,6 +118,15 @@ Each sanitized artifact is paired with screenshots:
 
 ---
 
+### MITRE ATT&CK Techniques Observed
+- T1110 – Brute Force (SSH password guessing)
+- T1046 – Network Service Scanning (TCP port probes)
+- T1021 – Remote Services (SSH)
+- T1078 – Valid Accounts (successful credential use)
+- T1573 – Encrypted Channel (SSH encrypted tunnel)
+
+---
+
 ## Recommendations / Mitigations
 - Disable SSH password authentication (`PasswordAuthentication no`).
 - Disable root login (`PermitRootLogin no`).
@@ -127,7 +136,7 @@ Each sanitized artifact is paired with screenshots:
 
 ---
 
-## Notes / Caveats
+## Notes
 - Published pcaps are sanitized; raw captures are archived privately.
 - Timestamps are preserved but anonymized captures may alter flow slightly.
 - This project is for authorized lab testing only.
