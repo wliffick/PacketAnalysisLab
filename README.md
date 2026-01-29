@@ -4,7 +4,6 @@
 
 ---
 
-## Project Title
 **SSH Brute-force Detection & Packet Analysis** — evidence extraction and analysis of an SSH brute-force against an Ubuntu instance.
 
 ---
