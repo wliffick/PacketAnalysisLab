@@ -116,10 +116,6 @@ Each sanitized artifact is paired with screenshots:
   - ![Nmap SYN Filter](screenshots/nmap_syn_one_fixed_sanitized_filter.png)
   - ![Nmap SYN Packet](screenshots/nmap_syn_one_fixed_sanitized_packet.png)
 
-- **SSH session example**
-  - ![SSH Filter](screenshots/ssh_one_sanitized_filter.png)
-  - ![SSH Packet](screenshots/ssh_one_sanitized_packet.png)
-
 ---
 
 ### MITRE ATT&CK Techniques Observed
