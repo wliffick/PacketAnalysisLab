@@ -1,28 +1,34 @@
-# Packet Analysis Lab — README.md
+# Packet Analysis Lab — SSH Brute-Force Detection
 
 > SSH brute-force detection & packet analysis lab (with sanitized artifacts).
 
 ---
 
-**SSH Brute-force Detection & Packet Analysis** — evidence extraction and analysis of an SSH brute-force against an Ubuntu instance.
+## Overview
+This project demonstrates how to capture, analyze, sanitize, and document an SSH brute-force attack against an Ubuntu server. Artifacts include sanitized PCAPs, extracted TCP streams, verbose packet dumps, and Wireshark screenshots.
+
+The goal was to simulate a real-world attack scenario and perform network-level and log-level analysis to identify, validate, and document a successful SSH brute-force login.
+
+**Outcome**: This investigation idetified and isolated the exact TCP stream associated with a successful brute-force login and produced sanitized forensic artifacts.
 
 ---
 
-## Overview
-This project demonstrates how to capture, sanitize, and document an SSH brute-force attack. Artifacts include sanitized PCAP captures, per-stream extractions, verbose packet dumps, and Wireshark screenshots.
+## What This Project Demonstrates
 
-Primary goals:
-- Identify brute-force traffic in a capture.
-- Quantify attack traffic (counts, rate).
-- Extract the stream containing the successful login.
-- Provide clear, publishable evidence for reporting.
+- Network traffic capture with `tcpdump`
+- Brute-force attack detection and profiling
+- Packet-level forensic analysis with `tshark` / Wireshark
+- Log and network evidence correlation
+- TCP stream extraction and inspection
+- Evidence sanitization for public reporting
+- Mapping activity to MITRE ATT&CK techniques
 
 ---
 
 ## Lab / Environment
-- Attacker: Kali Linux (local or AWS)
-- Target: AWS EC2 Ubuntu server (SSH enabled)
-- Tools: `tcpdump`, `tshark` (Wireshark CLI), `hydra` (attacker), `ssh`, `journalctl` / `/var/log/auth.log`
+- **Attacker**: Kali Linux
+- **Target**: AWS EC2 Ubuntu server (SSH enabled)
+- **Tools**: `tcpdump`, `tshark` (Wireshark CLI), `hydra`, `ssh`, `journalctl`, `Wireshark`
 - Repo layout:
   ```
   pcaps/
@@ -59,12 +65,11 @@ Primary goals:
 - `dumps/stream_398_verbose_sanitized.txt` — verbose dump of stream 398.
 - `dumps/accepted_login_frames_44-52_sanitized.txt` — verbose dump of accepted-login frames.
 
-> **Security Note:** All pcaps have been sanitized to remove payloads, anonymize IPs (mapped to `10.0.0.x`), and replace MAC addresses. Credentials and sensitive information have been redacted.
+> **Security Note:** All artifacts are sanitized. IP addresses are anonymized, MAC addresses replaced, and payloads and credentials removed.
 
 ---
 
 ## Commands Used (for raw analysis)
-These were the original commands used before sanitization. Replace filenames with the sanitized equivalents for reproducibility.
 
 ```bash
 # total SSH-related packets
@@ -87,10 +92,10 @@ tshark -r accepted_login_frames_44-52.pcap -V | tee accepted_login_frames_44-52.
 ## Findings / Metrics (from raw analysis)
 - SSH packet count: **16,572**
 - Capture duration (SSH packets): **~469 seconds**
-- Packets/sec: **~35.35**
+- Packets/sec: **~35**
 - SYN-only attempts to port 22: **418**
 - Distinct sessions: **~838**
-- Top source IPs (before anonymization): attacker vs. local host roughly split 50/50.
+- Top source IPs (before anonymization): Traffic consisted of attacker-to-server and server-to-attacker SSH sessions at roughly equal volume..
 - Hydra recorded one valid credential (redacted in public repo).
 - Logs showed one successful login event aligned with **stream 398**.
 
@@ -127,27 +132,22 @@ Each sanitized artifact is paired with screenshots:
 ---
 
 ## Recommendations / Mitigations
-- Disable SSH password authentication (`PasswordAuthentication no`).
-- Disable root login (`PermitRootLogin no`).
-- Use fail2ban or similar to block brute-force attempts.
-- Require strong, unique credentials or enforce MFA.
-- Restrict SSH exposure (security groups, VPN, bastion host).
+- Disable SSH password authentication
+- Disable root login
+- Use fail2ban or rate-limiting controls
+- Require strong, unique credentials and enforce MFA
+- Restrict SSH access via firewall/security groups
 
 ---
 
 ## Notes
-- Published pcaps are sanitized; raw captures are archived privately.
+- Only sanitized pcaps are published
 - Timestamps are preserved but anonymized captures may alter flow slightly.
-- This project is for authorized lab testing only.
+- All testing was performed in a controlled lab environment
 
 ---
 
 ## Author
 Wade Liffick — `wliffick`  
 
-
----
-
-## License
-MIT — feel free to reuse for personal labs and reporting.
 
